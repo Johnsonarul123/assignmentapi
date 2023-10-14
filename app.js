@@ -1,24 +1,25 @@
-// Import necessary modules
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors'); // Imported cors middleware
 
 // Create an Express app
 const app = express();
-const port = 3000;
+const port = 8000;
 
-// Define a route to serve the frontend (Assuming frontend files are in the 'public' folder)
-app.use(express.static('public'));
+
+
+app.use(cors());
 
 // Define a route to fetch data from a public API
 app.get('/api/data', async (req, res) => {
   try {
-    // Make a request to a public API (Replace 'API_ENDPOINT' with the actual API endpoint)
+   
     const response = await axios.get('https://jsonplaceholder.typicode.com/users');
 
-    // Extract relevant data from the API response (Modify as needed)
+    // Extracting relevant data from the API response 
     const apiData = response.data;
 
-    // Format and send the data to the frontend
+   
     res.json({ success: true, data: apiData });
   } catch (error) {
     // Handle errors
@@ -27,7 +28,7 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// Define a default route for other requests
+// route
 app.get('*', (req, res) => {
   res.status(404).send('Page not found');
 });
